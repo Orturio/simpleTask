@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class Main {
+
+    private static HashMap<Character, Integer> countOfCharsInString = new HashMap<>();
+
     public static void main(String[] args) throws IOException, InterruptedException {
         Random rand = new Random();
         int number = rand.nextInt(0, 100);
@@ -13,10 +16,11 @@ public class Main {
         String response = GetResponse(url);
 
         String responseWithoutWhitespaces = response.replaceAll("\\s+", "").toLowerCase();
-        OutputCountOfSymbolsInString(responseWithoutWhitespaces);
+        String responseWithoutPunctuationMarks = responseWithoutWhitespaces.replaceAll("\\p{Punct}", "");
+        OutputCountOfSymbolsInStringAndFrequencyAverage(responseWithoutPunctuationMarks);
     }
 
-    public static String GetResponse(String url) throws IOException, InterruptedException {
+    private static String GetResponse(String url) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder().GET().uri(URI.create(url)).build();
         HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -26,20 +30,50 @@ public class Main {
         return response.body().toString();
     }
 
-    public static void OutputCountOfSymbolsInString(String response) {
-        HashMap<Character, Integer> countOfChars = new HashMap<>();
+    private static void OutputCountOfSymbolsInStringAndFrequencyAverage(String response) {
+        OutputCountOfSymbolsInString(response);
+        OutputFrequencyAverage(response.length());
+    }
 
+    private static void OutputCountOfSymbolsInString(String response) {
         for (char symbol : response.toCharArray()) {
-            if(countOfChars.containsKey(symbol)) {
-                countOfChars.computeIfPresent(symbol, (k, v) -> v + 1);
+            if(countOfCharsInString.containsKey(symbol)) {
+                countOfCharsInString.computeIfPresent(symbol, (s, i) -> i + 1);
             }
             else {
-                countOfChars.put(symbol, 1);
+                countOfCharsInString.put(symbol, 1);
             }
         }
 
-        for (char symbol : countOfChars.keySet()) {
-            System.out.println(symbol + " - " + countOfChars.get(symbol));
+        System.out.println("Frequencies:");
+        for (char symbol : countOfCharsInString.keySet()) {
+            System.out.println(symbol + " - " + countOfCharsInString.get(symbol));
+        }
+    }
+
+    private static void OutputFrequencyAverage(int length) {
+        boolean firstIteration = true;
+        float frequencyAverage = (float) length / (float) countOfCharsInString.size();
+        float closestGapBetweenCountAndFrequency = 0;
+
+        System.out.println("Frequency average value " + length + "/" + countOfCharsInString.size() + " = " + frequencyAverage);
+
+        for (char symbol : countOfCharsInString.keySet()) {
+            if (firstIteration) {
+                closestGapBetweenCountAndFrequency = Math.abs(countOfCharsInString.get(symbol) - frequencyAverage);
+                firstIteration = false;
+            }
+            else if (Math.abs(countOfCharsInString.get(symbol) - frequencyAverage) < closestGapBetweenCountAndFrequency) {
+                closestGapBetweenCountAndFrequency = Math.abs(countOfCharsInString.get(symbol) - frequencyAverage);
+            }
+        }
+
+        System.out.print("Symbols that satisfy the condition of the closest frequency value to the average value: ");
+
+        for (char symbol : countOfCharsInString.keySet()) {
+            if (Math.abs(countOfCharsInString.get(symbol) - frequencyAverage) == closestGapBetweenCountAndFrequency) {
+                System.out.print(symbol + "(" + (int)symbol + ") ");
+            }
         }
     }
 }
