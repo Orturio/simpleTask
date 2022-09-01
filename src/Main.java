@@ -13,7 +13,7 @@ public class Main {
         String response = GetResponse(url);
 
         String responseWithoutWhitespaces = response.replaceAll("\\s+", "").toLowerCase();
-        OutputCountOfCharInString(responseWithoutWhitespaces);
+        OutputCountOfSymbolsInString(responseWithoutWhitespaces);
     }
 
     public static String GetResponse(String url) throws IOException, InterruptedException {
@@ -26,7 +26,7 @@ public class Main {
         return response.body().toString();
     }
 
-    public static void OutputCountOfCharInString(String response) {
+    public static void OutputCountOfSymbolsInString(String response) {
         HashMap<Character, Integer> countOfChars = new HashMap<>();
 
         for (char symbol : response.toCharArray()) {

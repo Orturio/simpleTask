@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0021c405-410a-4234-bf3b-d0bda0a1ec6c" name="Changes" comment="simple task" />
+    <list default="true" id="0021c405-410a-4234-bf3b-d0bda0a1ec6c" name="Changes" comment="simple task">
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -56,7 +58,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1662037849962</updated>
-      <workItem from="1662037854127" duration="4629000" />
+      <workItem from="1662037854127" duration="5284000" />
     </task>
     <task id="LOCAL-00001" summary="simple task">
       <created>1662042440594</created>
@@ -65,7 +67,14 @@
       <option name="project" value="LOCAL" />
       <updated>1662042440594</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="simple task">
+      <created>1662042531604</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1662042531604</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
